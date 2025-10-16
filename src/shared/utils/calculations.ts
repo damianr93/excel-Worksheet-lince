@@ -1,6 +1,19 @@
 import { ProductRow, ColumnTotals } from '@shared/types/excel.types';
 
 /**
+ * Factor fijo aplicado sobre la comisión para calcular la base de retención
+ */
+export const RET_IIBB_BASE_FACTOR = 0.8;
+
+/**
+ * Calcula la retención de ingresos brutos considerando el porcentaje configurable
+ */
+export const calculateRetIIBB = (comisionMonto: number, percentage: number): number => {
+  const normalizedPercentage = Number.isFinite(percentage) ? percentage : 0;
+  return comisionMonto * RET_IIBB_BASE_FACTOR * (normalizedPercentage / 100);
+};
+
+/**
  * Calcula el monto de comisión basado en el porcentaje y el total
  */
 export const calculateComisionMonto = (comisionPorcentaje: number, total: number): number => {

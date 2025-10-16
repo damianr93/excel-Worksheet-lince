@@ -57,15 +57,9 @@ export const ProductRow = ({ producto }: ProductRowProps) => {
         />
       </td>
       <td className="px-4 py-3 bg-pink-50">
-        <input
-          type="number"
-          value={producto.retIIBB}
-          onChange={(e) => handleInputChange('retIIBB', e.target.value)}
-          className="w-full px-2 py-1 text-sm text-center border border-pink-200 rounded focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-          placeholder="0"
-          step="0.01"
-          min="0"
-        />
+        <div className="w-full px-2 py-1 text-sm text-right font-mono text-pink-700">
+          {formatCurrency(producto.retIIBB)}
+        </div>
       </td>
     </tr>
   );

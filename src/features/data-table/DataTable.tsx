@@ -6,10 +6,17 @@ import { calculateColumnTotals } from '@shared/utils/calculations';
 
 export const DataTable = () => {
   const excelData = useExcelStore((state) => state.excelData);
+  const retIIBBPercentage = useExcelStore((state) => state.retIIBBPercentage);
+  const setRetIIBBPercentage = useExcelStore((state) => state.setRetIIBBPercentage);
   
   if (!excelData) return null;
   
   const totals = calculateColumnTotals(excelData.productos);
+  
+  const handleRetentionChange = (value: string) => {
+    const parsed = parseFloat(value);
+    setRetIIBBPercentage(Number.isFinite(parsed) ? parsed : 0);
+  };
   
   return (
     <div className="space-y-6">
@@ -42,6 +49,32 @@ export const DataTable = () => {
             <span className="ml-2 text-gray-600">{excelData.filtros.nivel}</span>
           </div>
         </div>
+      </div>
+      
+      {/* Configuración de retención IIBB */}
+      <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col gap-3 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <label className="text-sm font-medium text-gray-700" htmlFor="ret-iibb-percentage">
+            Porcentaje RET IIBB (%)
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              id="ret-iibb-percentage"
+              type="number"
+              value={retIIBBPercentage}
+              onChange={(e) => handleRetentionChange(e.target.value)}
+              className="w-32 px-3 py-2 text-sm text-right border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              min="0"
+              step="0.01"
+            />
+            <span className="text-xs text-gray-500 whitespace-nowrap">
+              Aplicado sobre el 80% del $ comisión
+            </span>
+          </div>
+        </div>
+        <p className="text-xs text-gray-500">
+          Ajusta este porcentaje si la normativa cambia; los valores de RET IIBB se recalculan automáticamente.
+        </p>
       </div>
       
       {/* Tabla de productos */}

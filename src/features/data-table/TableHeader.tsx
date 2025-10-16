@@ -26,7 +26,7 @@ export const TableHeader = () => {
         <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider bg-purple-50">
           PERC IIBB
         </th>
-        <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider bg-pink-50">
+        <th className="px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider bg-pink-50">
           RET IIBB
         </th>
       </tr>
